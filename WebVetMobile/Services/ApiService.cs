@@ -31,20 +31,20 @@ namespace WebVetMobile.Services
         }
 
 
-        public async Task<ApiResponse<bool>> Login(string email, string password)
+        public async Task<ApiResponse<bool>> Login(string username, string password)
         {
             try
             {
                 var login = new LoginViewModel()
                 {
-                    Email = email,
+                    Username= username,
                     Password = password
                 };
 
                 var json = JsonSerializer.Serialize(login, _serializerOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await PostRequest("api/Users/Login", content);
+                var response = await PostRequest("api/Account/ApiLogin", content);
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogError($"Error in the request HTTP : {response.StatusCode}");
@@ -58,7 +58,7 @@ namespace WebVetMobile.Services
                 var result = JsonSerializer.Deserialize<Token>(jsonResult, _serializerOptions);
 
                 Preferences.Set("accesstoken", result!.AccessToken);
-                Preferences.Set("UserId", (int)result.UserId!);
+                Preferences.Set("UserId", result.UserId!);
                 Preferences.Set("UserName", result.UserName);
 
                 return new ApiResponse<bool> { Data = true };
@@ -81,7 +81,7 @@ namespace WebVetMobile.Services
             }
             catch (Exception ex)
             {
-                // Log o erro ou trate conforme necessário
+            
                 _logger.LogError($"Error in the request POST for {uri}: {ex.Message}");
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }

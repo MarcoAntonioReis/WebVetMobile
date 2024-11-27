@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebVetMobile.Services
 {
-    class ApiResponse<T>
+   public class ApiResponse<T>
     {
         public T? Data { get; set; }
         public string? ErrorMessage { get; set; }

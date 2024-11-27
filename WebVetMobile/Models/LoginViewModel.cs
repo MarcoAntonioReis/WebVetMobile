@@ -11,7 +11,7 @@ namespace WebVetMobile.Models
     public partial class LoginViewModel : ObservableObject, INotifyPropertyChanging
     {
         [ObservableProperty]
-        string? email;
+        string? username;
 
         [ObservableProperty]
         string? password;

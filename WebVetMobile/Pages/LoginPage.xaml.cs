@@ -14,4 +14,30 @@ public partial class LoginPage : ContentPage
         _validator = validator;
         InitializeComponent();
 	}
+
+    private async void BtnSignIn_Clicked(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(EntEmail.Text))
+        {
+            await DisplayAlert("Error", "Insert email", "Cancel");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(EntPassword.Text))
+        {
+            await DisplayAlert("Error", "Insert password", "Cancel");
+            return;
+        }
+
+        var response = await _apiService.Login(EntEmail.Text, EntPassword.Text);
+
+        if (!response.HasError)
+        {
+            Application.Current!.MainPage = new AppShell(_apiService, _validator);
+        }
+        else
+        {
+            await DisplayAlert("Erro", "Algo deu errado", "Cancelar");
+        }
+    }
 }
