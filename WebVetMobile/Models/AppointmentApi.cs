@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebVetMobile.Models
 {
-   public class Appointment
+   public class AppointmentApi
     {
         public int Id { get; set; }
 

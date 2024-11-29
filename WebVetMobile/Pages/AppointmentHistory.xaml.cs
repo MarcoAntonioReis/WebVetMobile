@@ -23,7 +23,7 @@ public partial class AppointmentHistory : ContentPage
         await GetAppointmentHistory();
     }
 
-    private async Task<IEnumerable<Appointment>> GetAppointmentHistory()
+    private async Task<IEnumerable<AppointmentApi>> GetAppointmentHistory()
     {
         
         try
@@ -32,13 +32,13 @@ public partial class AppointmentHistory : ContentPage
             if (errorMessage == "Unauthorized" && _loginPageDisplayed)
             {
                 await DisplayLoginPage();
-                return Enumerable.Empty<Appointment>();
+                return Enumerable.Empty<AppointmentApi>();
             }
 
             if (appointmentsResult is null)
             {
-                await DisplayAlert("Erro", errorMessage ?? "Não foi possivel obter as categorias.", "Ok");
-                return Enumerable.Empty<Appointment>();
+                await DisplayAlert("Error", errorMessage ?? "It was not possible to get history.", "Ok");
+                return Enumerable.Empty<AppointmentApi>();
             }
             CvAppointments.ItemsSource = appointmentsResult;
             return appointmentsResult;
@@ -48,7 +48,7 @@ public partial class AppointmentHistory : ContentPage
         {
 
             await DisplayAlert("Error", $"Unexpected error:{ex.Message}", "Ok");
-            return Enumerable.Empty<Appointment>();
+            return Enumerable.Empty<AppointmentApi>();
         }
 
 
@@ -62,6 +62,17 @@ public partial class AppointmentHistory : ContentPage
 
     private void CvAppointments_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        var currentSelection = e.CurrentSelection.FirstOrDefault() as AppointmentApi;
+
+        if (currentSelection == null)
+        {
+            return;
+        }
+
+        Navigation.PushAsync(new DetailsPage(currentSelection, _apiService, _validator));
+        ((CollectionView)sender).SelectedItem = null;
 
     }
+
+  
 }

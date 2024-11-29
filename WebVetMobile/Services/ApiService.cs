@@ -28,7 +28,7 @@ namespace WebVetMobile.Services
             _serializerOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
-               
+
             };
         }
 
@@ -39,7 +39,7 @@ namespace WebVetMobile.Services
             {
                 var login = new LoginViewModel()
                 {
-                    Username= username,
+                    Username = username,
                     Password = password
                 };
 
@@ -83,18 +83,72 @@ namespace WebVetMobile.Services
             }
             catch (Exception ex)
             {
-            
+
                 _logger.LogError($"Error in the request POST for {uri}: {ex.Message}");
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
 
-        public async Task<(List<Appointment>? appointments, string? ErrorMessage)> GetAppoimtments(string userEmail)
+        public async Task<(List<AppointmentApi>? appointments, string? ErrorMessage)> GetAppoimtments(string userEmail)
         {
 
             string endpoint = $"api/Owner/GetOwnerAppointmentList?userEmail={userEmail}";
-            return await GetAsync<List<Appointment>>(endpoint);
+            return await GetAsync<List<AppointmentApi>>(endpoint);
 
+        }
+
+
+        public async Task<(bool Data, string? ErrorMessage)> CancelAppointment(AppointmentApi appointment)
+        {
+            try
+            {
+                var content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+                var response = await PutRequest($"api/Appointment/CancelAppointments?id={appointment.Id}", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return (true, null);
+                }
+                else
+                {
+                    if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        string errorMessage = "Unauthorized";
+                        _logger.LogWarning(errorMessage);
+                        return (false, errorMessage);
+                    }
+                    string generalErrorMessage = $"Erro na requisição: {response.ReasonPhrase}";
+                    _logger.LogError(generalErrorMessage);
+                    return (false, generalErrorMessage);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                string errorMessage = $"Erro de requisição HTTP: {ex.Message}";
+                _logger.LogError(ex, errorMessage);
+                return (false, errorMessage);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = $"Erro inesperado: {ex.Message}";
+                _logger.LogError(ex, errorMessage);
+                return (false, errorMessage);
+            }
+        }
+
+        private async Task<HttpResponseMessage> PutRequest(string uri, HttpContent content)
+        {
+            var enderecoUrl = AppConfig.BaseUrl + uri;
+            try
+            {
+                AddAuthorizationHeader();
+                var result = await _httpClient.PutAsync(enderecoUrl, content);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in the put PUT para {uri}: {ex.Message}");
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
         }
 
         private async Task<(T? Data, string? ErrorMessage)> GetAsync<T>(string endpoint)
