@@ -20,7 +20,7 @@ namespace WebVetMobile
         private void ConfigureShell()
         {
             var homePage = new AppointmentHistory(_apiService, _validator);
-            //var carrinhoPage = new CarrinhoPage(_apiService, _validator);
+            var animalsPage = new Animals(_apiService, _validator);
             //var favoritosPage = new FavoritosPage(_apiService, _validator);
             var perfilPage = new ProfilePage(_apiService, _validator);
 
@@ -29,6 +29,7 @@ namespace WebVetMobile
                 Items =
             {
                 new ShellContent { Title = "Appointment History",Icon = "home",Content = homePage  },
+                new ShellContent { Title = "Animals",Icon = "home",Content = animalsPage  },
                 //new ShellContent { Title = "Carrinho", Icon = "cart",Content = carrinhoPage },
                 //new ShellContent { Title = "Favoritos",Icon = "heart",Content = favoritosPage },
                 new ShellContent { Title = "Perfil",Icon = "profile",Content = perfilPage }

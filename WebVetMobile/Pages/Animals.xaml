@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WebVetMobile.Pages.Animals"
+             Title="Animals">
+    <CollectionView x:Name="CvAnimals"
+                 SelectionMode="Single"
+                 Margin="10"
+                 SelectionChanged="CvAnimals_SelectionChanged">
+
+
+        <CollectionView.ItemsLayout>
+
+            <GridItemsLayout Orientation="Vertical" Span="1"
+                         HorizontalItemSpacing="15"
+                         VerticalItemSpacing="15"/>
+
+        </CollectionView.ItemsLayout>
+
+        <CollectionView.ItemTemplate>
+
+            <DataTemplate>
+
+                <Border VerticalOptions="Start"
+                    StrokeShape="RoundRectangle 15,15,15,15"
+                    Padding="10">
+
+                    <Grid RowSpacing="1" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+
+
+                        <Label Grid.Row="1" Grid.Column="0" FontAttributes="Bold"
+                           FontSize="Medium"
+                           LineBreakMode="WordWrap"
+                           MaxLines="2"
+                           Text="Name:  "/>
+                        <Label Grid.Row="1" Grid.Column="1" FontAttributes="Bold"
+                           FontSize="Medium"
+                           LineBreakMode="WordWrap"
+                           MaxLines="2"
+                           Text="{Binding Name}"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" FontAttributes="Bold"
+                       FontSize="Medium"
+                       LineBreakMode="WordWrap"
+                       MaxLines="2"
+                       Text="Species:"/>
+
+                        <Label Grid.Row="2" Grid.Column="1"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                            MaxLines="1"
+                           Text="{Binding Species}"/>
+
+
+
+
+                    </Grid>
+
+                </Border>
+            </DataTemplate>
+
+
+
+        </CollectionView.ItemTemplate>
+
+
+    </CollectionView>
+</ContentPage>

@@ -25,6 +25,13 @@
                        Margin="20"
                        Spacing="20">
 
+
+            <Entry Placeholder="Address"
+              FontSize="12"
+              x:Name="EntAddress"
+              IsReadOnly="True"/>
+
+
             <Entry Placeholder="First Name"
              FontSize="12"
              x:Name="EntFirstName" />
@@ -38,9 +45,7 @@
              FontSize="12"
              x:Name="EntEmail" />
 
-            <Entry Placeholder="Address"
-              FontSize="12"
-              x:Name="EntAddress" />
+
 
             <Entry Placeholder="Contact"
                Keyboard="Telephone"

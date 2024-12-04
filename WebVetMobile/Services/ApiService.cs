@@ -92,6 +92,12 @@ namespace WebVetMobile.Services
 
         }
 
+        public async Task<(List<Animal>? animals, string? ErrorMessage)> GetUserAnimals()
+        {
+            string endpoint = $"api/Animal/GetAnimalsByClientApi";
+            return await GetAsync<List<Animal>>(endpoint);
+        }
+
         public async Task<ApiResponse<bool>> UpdateUser(User user)
         {
             if (user!=null)
