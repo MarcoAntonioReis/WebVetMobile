@@ -27,7 +27,7 @@ namespace WebVetMobile.Models
         string? address;
 
         [ObservableProperty]
-        int contact;
+        string? phoneNumber;
 
         [ObservableProperty]
         Guid imageId;

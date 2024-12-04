@@ -59,7 +59,7 @@ namespace WebVetMobile.Services
                 var jsonResult = await response.Content.ReadAsStringAsync();
                 var result = JsonSerializer.Deserialize<Token>(jsonResult, _serializerOptions);
 
-                Preferences.Set("accesstoken", result!.AccessToken);
+                Preferences.Set("accesstoken", result.AccessToken);
                 Preferences.Set("UserId", result.UserId!);
                 Preferences.Set("UserName", result.UserName);
 
@@ -71,6 +71,64 @@ namespace WebVetMobile.Services
                 return new ApiResponse<bool> { ErrorMessage = ex.Message };
             }
         }
+
+
+        public async Task<User> GetCurrentUserInfo()
+        {
+
+            string endpoint = "api/Account/GetUserInfo";
+            var (response, errorMessage) = await GetAsync<User>(endpoint);
+            if (response != null)
+            {
+                return response;
+            }
+            else
+            {
+                _logger.LogError($"Error on get details : {errorMessage}");
+                return null;
+            }
+
+
+
+        }
+
+        public async Task<ApiResponse<bool>> UpdateUser(User user)
+        {
+            if (user!=null)
+            {
+                try
+                {
+                    var json = JsonSerializer.Serialize(user, _serializerOptions);
+
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await PostRequest("api/Account/ApiUpdateUser", content);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        _logger.LogError($"Error in the request HTTP : {response.StatusCode}");
+                        return new ApiResponse<bool>
+                        {
+                            ErrorMessage = $"Error in the request HTTP : {response.StatusCode}"
+                        };
+                    }
+                    var jsonResult = await response.Content.ReadAsStringAsync();
+                    var result = JsonSerializer.Deserialize<User>(jsonResult, _serializerOptions);
+
+
+                    return new ApiResponse<bool> { Data = true };
+                }
+                catch(Exception ex)
+                {
+                    _logger.LogError($"Erro no login : {ex.Message}");
+                    return new ApiResponse<bool> { ErrorMessage = ex.Message };
+                }
+            }
+            else
+            {
+                return new ApiResponse<bool> { ErrorMessage = "Invalid User" };
+            }
+        }
+
 
 
         private async Task<HttpResponseMessage> PostRequest(string uri, HttpContent content)

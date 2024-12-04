@@ -8,7 +8,7 @@ namespace WebVetMobile
 {
     public static class AppConfig
     {
-        public static readonly string BaseUrl = "https://g4sd67wz-44384.uks1.devtunnels.ms/";
-        public static readonly string titleHomePage = "FItAmp";
+        public static readonly string BaseUrl = "https://g4sd67wz-7085.uks1.devtunnels.ms/";
+        public static readonly string titleHomePage = "webVet";
     }
 }

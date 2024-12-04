@@ -22,7 +22,7 @@ namespace WebVetMobile
             var homePage = new AppointmentHistory(_apiService, _validator);
             //var carrinhoPage = new CarrinhoPage(_apiService, _validator);
             //var favoritosPage = new FavoritosPage(_apiService, _validator);
-            //var perfilPage = new PerfilPage(_apiService, _validator);
+            var perfilPage = new ProfilePage(_apiService, _validator);
 
             Items.Add(new TabBar
             {
@@ -31,7 +31,7 @@ namespace WebVetMobile
                 new ShellContent { Title = "Appointment History",Icon = "home",Content = homePage  },
                 //new ShellContent { Title = "Carrinho", Icon = "cart",Content = carrinhoPage },
                 //new ShellContent { Title = "Favoritos",Icon = "heart",Content = favoritosPage },
-                //new ShellContent { Title = "Perfil",Icon = "profile",Content = perfilPage }
+                new ShellContent { Title = "Perfil",Icon = "profile",Content = perfilPage }
             }
             });
         }
