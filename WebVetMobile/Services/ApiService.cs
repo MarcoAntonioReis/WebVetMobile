@@ -125,7 +125,7 @@ namespace WebVetMobile.Services
                 }
                 catch(Exception ex)
                 {
-                    _logger.LogError($"Erro no login : {ex.Message}");
+                    _logger.LogError($"Error on login : {ex.Message}");
                     return new ApiResponse<bool> { ErrorMessage = ex.Message };
                 }
             }
@@ -134,6 +134,47 @@ namespace WebVetMobile.Services
                 return new ApiResponse<bool> { ErrorMessage = "Invalid User" };
             }
         }
+
+
+
+
+        public async Task<ApiResponse<bool>> UpdateAnimal(Animal animal)
+        {
+            if (animal != null)
+            {
+                try
+                {
+                    var json = JsonSerializer.Serialize(animal, _serializerOptions);
+
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response = await PostRequest("api/Animal/ApiUpdateAnimal", content);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        _logger.LogError($"Error in the request HTTP : {response.StatusCode}");
+                        return new ApiResponse<bool>
+                        {
+                            ErrorMessage = $"Error in the request HTTP : {response.StatusCode}"
+                        };
+                    }
+                    var jsonResult = await response.Content.ReadAsStringAsync();
+                    var result = JsonSerializer.Deserialize<Animal>(jsonResult, _serializerOptions);
+
+
+                    return new ApiResponse<bool> { Data = true };
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error on login : {ex.Message}");
+                    return new ApiResponse<bool> { ErrorMessage = ex.Message };
+                }
+            }
+            else
+            {
+                return new ApiResponse<bool> { ErrorMessage = "Invalid Animal" };
+            }
+        }
+
 
 
 
@@ -158,6 +199,14 @@ namespace WebVetMobile.Services
 
             string endpoint = $"api/Owner/GetOwnerAppointmentList?userEmail={userEmail}";
             return await GetAsync<List<AppointmentApi>>(endpoint);
+
+        }
+
+        public async Task<(List<DoctorDetails>? doctors, string? ErrorMessage)> GetDoctors()
+        {
+
+            string endpoint = $"api/Doctor/GetDoctorsApi";
+            return await GetAsync<List<DoctorDetails>>(endpoint);
 
         }
 

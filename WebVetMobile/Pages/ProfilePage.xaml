@@ -21,15 +21,16 @@
 
 
         </VerticalStackLayout>
+        
         <VerticalStackLayout Grid.Row="1"
                        Margin="20"
                        Spacing="20">
 
-
-            <Entry Placeholder="Address"
-              FontSize="12"
-              x:Name="EntAddress"
-              IsReadOnly="True"/>
+            <Entry Placeholder="Email"
+             Keyboard="Email"
+             FontSize="12"
+             x:Name="EntEmail"
+             IsReadOnly="True"/>
 
 
             <Entry Placeholder="First Name"
@@ -40,12 +41,13 @@
              FontSize="12"
              x:Name="EntLastName" />
 
-            <Entry Placeholder="Email"
-             Keyboard="Email"
-             FontSize="12"
-             x:Name="EntEmail" />
 
 
+
+            <Entry Placeholder="Address"
+              FontSize="12"
+              x:Name="EntAddress"
+              />
 
             <Entry Placeholder="Contact"
                Keyboard="Telephone"
@@ -60,6 +62,7 @@
              Clicked="BtnSave_Clicked"
               BackgroundColor="Cyan"
               TextColor="Maroon" />
+            
         </VerticalStackLayout>
     </Grid>
 

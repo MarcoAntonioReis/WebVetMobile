@@ -10,7 +10,7 @@ public partial class Animals : ContentPage
     private readonly IValidator _validator;
     private bool _loginPageDisplayed = false;
     public Animals(ApiService apiService, IValidator validator)
-	{
+    {
         _apiService = apiService;
         _validator = validator;
         InitializeComponent();
@@ -58,6 +58,15 @@ public partial class Animals : ContentPage
 
     private void CvAnimals_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        var selectedAnimal = e.CurrentSelection.FirstOrDefault() as Animal;
+
+        if (selectedAnimal == null)
+        {
+            return;
+        }
+
+        Navigation.PushAsync(new AnimalDetails(selectedAnimal,_apiService, _validator));
+        ((CollectionView)sender).SelectedItem = null;
 
     }
 }

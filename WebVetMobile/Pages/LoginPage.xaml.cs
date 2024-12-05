@@ -40,4 +40,9 @@ public partial class LoginPage : ContentPage
             await DisplayAlert("Erro", "Algo deu errado", "Cancelar");
         }
     }
+
+    private void BtnTheTime_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new TeamPage(_apiService, _validator));
+    }
 }

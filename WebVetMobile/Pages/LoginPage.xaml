@@ -4,7 +4,7 @@
              x:Class="WebVetMobile.Pages.LoginPage"
              Title="LoginPage"
               NavigationPage.HasNavigationBar="False">
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*"
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
          RowSpacing="20"
          Margin="20,150,20,40">
 
@@ -34,19 +34,18 @@
         </Frame>
 
        <Button Grid.Row="3"
-               Text="Entrar"
+               Text="Login"
                FontSize="Medium"
                x:Name="BtnSignIn" 
                BackgroundColor="#a90409"
                Clicked="BtnSignIn_Clicked"/>
-        <HorizontalStackLayout Grid.Row="4"
-                              Spacing="2"
-                              HorizontalOptions="Center"
-                              VerticalOptions="EndAndExpand">
-            <Label Text="Não tem conta ? " />
-            <Label Text="Faça o registro agora" TextColor="#a90409" FontAttributes="Bold">
-     
-            </Label>
-        </HorizontalStackLayout>
+
+        <Button Grid.Row="4"
+        Text="Check our Team"
+        FontSize="Medium"
+        x:Name="BtnTheTime" 
+        BackgroundColor="#a90409"
+        Clicked="BtnTheTime_Clicked"/>
+
     </Grid>
 </ContentPage>
