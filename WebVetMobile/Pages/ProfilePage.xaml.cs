@@ -70,4 +70,9 @@ public partial class ProfilePage : ContentPage
 
 
     }
+
+    private async void BtnChangePassword_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ChangePassword(_apiService, _validator));
+    }
 }

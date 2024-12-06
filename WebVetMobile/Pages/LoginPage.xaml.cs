@@ -37,12 +37,17 @@ public partial class LoginPage : ContentPage
         }
         else
         {
-            await DisplayAlert("Erro", "Algo deu errado", "Cancelar");
+            await DisplayAlert("Error", "something went wrong", "Cancel");
         }
     }
 
     private void BtnTheTime_Clicked(object sender, EventArgs e)
     {
         Navigation.PushAsync(new TeamPage(_apiService, _validator));
+    }
+
+    private void BtnRecover_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new RecoverPassword(_apiService, _validator));
     }
 }

@@ -210,6 +210,14 @@ namespace WebVetMobile.Services
 
         }
 
+        public async Task<(bool Data, string? ErrorMessage)> RecoverPassword(string email)
+        {
+
+            string endpoint = $"api/Account/ApiRecoverPassword?email={email}";
+            return await GetAsync<bool>(endpoint);
+
+        }
+
 
         public async Task<(bool Data, string? ErrorMessage)> CancelAppointment(AppointmentApi appointment)
         {
@@ -243,6 +251,48 @@ namespace WebVetMobile.Services
             catch (Exception ex)
             {
                 string errorMessage = $"Erro inesperado: {ex.Message}";
+                _logger.LogError(ex, errorMessage);
+                return (false, errorMessage);
+            }
+        }
+
+
+
+        public async Task<(bool Data, string? ErrorMessage)> ChangePassword(ChangePasswordApi changePassword)
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(changePassword, _serializerOptions);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await PostRequest("api/Account/ApiChangePassword", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return (true, null);
+                }
+                else
+                {
+                    if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        string errorMessage = "Unauthorized";
+                        _logger.LogWarning(errorMessage);
+                        return (false, errorMessage);
+                    }
+                    string generalErrorMessage = $"Error on task: {response.ReasonPhrase}";
+                    _logger.LogError(generalErrorMessage);
+                    return (false, generalErrorMessage);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                string errorMessage = $"Error on HTTP request: {ex.Message}";
+                _logger.LogError(ex, errorMessage);
+                return (false, errorMessage);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = $"Unexpected error: {ex.Message}";
                 _logger.LogError(ex, errorMessage);
                 return (false, errorMessage);
             }

@@ -21,7 +21,7 @@
 
 
         </VerticalStackLayout>
-        
+
         <VerticalStackLayout Grid.Row="1"
                        Margin="20"
                        Spacing="20">
@@ -62,7 +62,17 @@
              Clicked="BtnSave_Clicked"
               BackgroundColor="Cyan"
               TextColor="Maroon" />
-            
+
+
+            <Button
+                x:Name="BtnChangePassword"
+                Text="Change Password"
+              FontSize="Small"
+              FontAttributes="Bold"
+             Clicked="BtnChangePassword_Clicked"
+              BackgroundColor="Cyan"
+              TextColor="Maroon" />
+
         </VerticalStackLayout>
     </Grid>
 
