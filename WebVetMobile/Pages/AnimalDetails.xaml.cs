@@ -54,4 +54,9 @@ public partial class AnimalDetails : ContentPage
 
 
     }
+
+    private async void BtnAnimalHistory_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AnimalAppointment(_animal,_apiService, _validator));
+    }
 }

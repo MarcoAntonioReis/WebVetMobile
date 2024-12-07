@@ -202,6 +202,14 @@ namespace WebVetMobile.Services
 
         }
 
+        public async Task<(List<AppointmentApi>? appointments, string? ErrorMessage)> GetAnimalAppointments(int animalId)
+        {
+
+            string endpoint = $"api/Animal/ApiGetAnimalAppointments?id={animalId}";
+            return await GetAsync<List<AppointmentApi>>(endpoint);
+
+        }
+
         public async Task<(List<DoctorDetails>? doctors, string? ErrorMessage)> GetDoctors()
         {
 

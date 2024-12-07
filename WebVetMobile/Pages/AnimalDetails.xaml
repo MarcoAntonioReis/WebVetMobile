@@ -48,6 +48,18 @@
            Clicked="BtnSave_Clicked"
             BackgroundColor="Cyan"
             TextColor="Maroon" />
+
+            <Button Grid.Row="2"
+          Text="View History"
+          FontSize="Small"
+          x:Name="BtnAnimalHistory" 
+                      FontAttributes="Bold"
+          BackgroundColor="Cyan"
+                    TextColor="Maroon"
+          Clicked="BtnAnimalHistory_Clicked"/>
+
         </VerticalStackLayout>
+        
+
     </Grid>
 </ContentPage>
