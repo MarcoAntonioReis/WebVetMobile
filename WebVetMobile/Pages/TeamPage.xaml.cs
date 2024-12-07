@@ -44,4 +44,10 @@ public partial class TeamPage : ContentPage
             return Enumerable.Empty<DoctorDetails>();
         }
     }
+
+
+    private void BtnAbout_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new AboutPage());
+    }
 }
