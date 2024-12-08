@@ -382,6 +382,35 @@ namespace WebVetMobile.Services
             }
         }
 
+        internal async Task<ApiResponse<Guid>> UploadUserImage(byte[] imageArray)
+        {
+            try
+            {
+                var content = new MultipartFormDataContent();
+                content.Add(new ByteArrayContent(imageArray), "image", "image.jpg");
+                var response = await PostRequest("api/Account/UploadImage", content);
 
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorMessage = response.StatusCode == HttpStatusCode.Unauthorized
+                      ? "Unauthorized"
+                      : $"Erro ao enviar requisição HTTP: {response.StatusCode}";
+
+                    _logger.LogError($"Erro ao enviar requisição HTTP: {response.StatusCode}");
+                    return new ApiResponse<Guid> { ErrorMessage = errorMessage };
+                }
+
+                var responseString = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<Guid>(responseString, _serializerOptions);
+            
+
+                return new ApiResponse<Guid> { Data = data };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao fazer upload da imagem do usuário: {ex.Message}");
+                return new ApiResponse<Guid> { ErrorMessage = ex.Message };
+            }
+        }
     }
 }

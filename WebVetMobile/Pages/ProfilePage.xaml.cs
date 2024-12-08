@@ -1,3 +1,4 @@
+
 using WebVetMobile.Models;
 using WebVetMobile.Services;
 using WebVetMobile.Validations;
@@ -11,6 +12,7 @@ public partial class ProfilePage : ContentPage
     private bool _loginPageDisplayed = false;
 
     private const string UserId = "UserId";
+    private Guid imageId;
 
 
     public ProfilePage(ApiService apiService, IValidator validator)
@@ -19,6 +21,7 @@ public partial class ProfilePage : ContentPage
 
         _apiService = apiService;
         _validator = validator;
+        
     }
 
     protected override async void OnAppearing()
@@ -39,9 +42,12 @@ public partial class ProfilePage : ContentPage
             EntEmail.Text = currentUser.Email;
             EntContact.Text = currentUser.PhoneNumber.ToString();
             EntAddress.Text = currentUser.Address;
+            ImgBtnPerfil.Source = currentUser.ImageFullPath;
+
 
         }
 
+        
 
     }
 
@@ -56,6 +62,10 @@ public partial class ProfilePage : ContentPage
             Address = EntAddress.Text,
             PhoneNumber = EntContact.Text
         };
+        if (imageId != Guid.Empty)
+        {
+            user.ImageId = imageId;
+        }
 
         var response = await _apiService.UpdateUser(user);
 
@@ -74,5 +84,71 @@ public partial class ProfilePage : ContentPage
     private async void BtnChangePassword_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new ChangePassword(_apiService, _validator));
+    }
+
+    private async void ImgBtnPerfil_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var imagemArray = await SelectImageAsync();
+            if (imagemArray is null)
+            {
+                await DisplayAlert("Error", "The image has not sent", "Ok");
+                return;
+            }
+            ImgBtnPerfil.Source = ImageSource.FromStream(() => new MemoryStream(imagemArray));
+
+            var response = await _apiService.UploadUserImage(imagemArray);
+            if (response.Data!=Guid.Empty)
+            {
+                imageId= response.Data;
+                User tempUser= new User
+                {
+                    ImageId = imageId,
+                };
+
+                ImgBtnPerfil.Source=tempUser.ImageFullPath;
+
+               await DisplayAlert("", "The image has sent, to finalize press save ", "Ok");
+            }
+            else
+            {
+                await DisplayAlert("Error", response.ErrorMessage ?? "Something went wrong", "Cancel");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Something went wrongo: {ex.Message}", "Ok");
+        }
+    }
+
+    private async Task<byte[]?> SelectImageAsync()
+    {
+        try
+        {
+            var arquivo = await MediaPicker.PickPhotoAsync();
+
+            if (arquivo is null) return null;
+
+            using (var stream = await arquivo.OpenReadAsync())
+            using (var memoryStream = new MemoryStream())
+            {
+                await stream.CopyToAsync(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
+        catch (FeatureNotSupportedException)
+        {
+            await DisplayAlert("Error", "The functions is not supported", "Ok");
+        }
+        catch (PermissionException)
+        {
+            await DisplayAlert("Error", "Does not have permissions", "Ok");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Error Selecting the image: {ex.Message}", "Ok");
+        }
+        return null;
     }
 }
