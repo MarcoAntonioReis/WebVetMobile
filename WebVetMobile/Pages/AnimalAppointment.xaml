@@ -9,6 +9,7 @@
         <VerticalStackLayout>
             <CollectionView x:Name="CvAnimalApp"
               SelectionMode="Single"
+                            SelectionChanged="CvAnimalApp_SelectionChanged"
               Margin="10"
               >
 

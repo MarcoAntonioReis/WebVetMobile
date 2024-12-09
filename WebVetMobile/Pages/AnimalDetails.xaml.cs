@@ -18,26 +18,26 @@ public partial class AnimalDetails : ContentPage
         _apiService = apiService;
         _validator = validator;
 
-        _animal= animal;
+        _animal = animal;
     }
 
-    protected override async void OnAppearing()
+    protected override  void OnAppearing()
     {
         base.OnAppearing();
-        await LoadAnimalData();
+         LoadAnimalData();
 
     }
 
-    private async Task LoadAnimalData()
+    private void LoadAnimalData()
     {
 
-        if (_animal!=null)
+        if (_animal != null)
         {
             EntName.Text = _animal.Name;
             EntSpecies.Text = _animal.Species;
-            ImgBtnAnimal.Source=_animal.ImageFullPath;
+            ImgBtnAnimal.Source = _animal.ImageFullPath;
         }
-        
+
 
 
     }
@@ -45,11 +45,11 @@ public partial class AnimalDetails : ContentPage
 
     private async void BtnSave_Clicked(object sender, EventArgs e)
     {
-        Animal animalUpdated= new Animal
+        Animal animalUpdated = new Animal
         {
             Id = _animal.Id,
-            Name = _animal.Name,
-            Species = _animal.Species
+            Name = EntName.Text,
+            Species = EntSpecies.Text
         };
 
         if (imageId != Guid.Empty)
@@ -74,10 +74,10 @@ public partial class AnimalDetails : ContentPage
 
     private async void BtnAnimalHistory_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AnimalAppointment(_animal,_apiService, _validator));
+        await Navigation.PushAsync(new AnimalAppointment(_animal, _apiService, _validator));
     }
 
- 
+
 
     private async void ImgBtnAnimal_Clicked(object sender, EventArgs e)
     {
@@ -95,9 +95,9 @@ public partial class AnimalDetails : ContentPage
             if (response.Data != Guid.Empty)
             {
                 imageId = response.Data;
-                
 
-               _animal.ImageId= imageId;
+
+                _animal.ImageId = imageId;
 
                 ImgBtnAnimal.Source = _animal.ImageFullPath;
 

@@ -47,4 +47,17 @@ public partial class AnimalAppointment : ContentPage
             return Enumerable.Empty<AppointmentApi>();
         }
     }
+
+    private void CvAnimalApp_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var currentSelection = e.CurrentSelection.FirstOrDefault() as AppointmentApi;
+
+        if (currentSelection == null)
+        {
+            return;
+        }
+
+        Navigation.PushAsync(new DetailsPage(currentSelection, _apiService, _validator));
+        ((CollectionView)sender).SelectedItem = null;
+    }
 }
