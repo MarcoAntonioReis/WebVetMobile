@@ -35,11 +35,27 @@ public partial class DetailsPage : ContentPage
             LblDate.Text = _appointment.ScheduleDate;
             LblTime.Text = _appointment.ScheduleTime;
             LblState.Text = _appointment.State;
+            if (!string.IsNullOrEmpty(_appointment.ScheduleDate)&& !string.IsNullOrEmpty(_appointment.ScheduleTime))
+            {
+                DateTime temp = DateTime.ParseExact(_appointment.ScheduleDate, "dd/MM/yyyy",null );
+
+                temp.Add(TimeSpan.Parse(_appointment.ScheduleTime));
+
+                if (temp<DateTime.Now)
+                {
+                    BtnSignIn.IsVisible = false;
+                }
+                else
+                {
+                    BtnSignIn.IsVisible = true;
+                }
+            }
         }
         else
         {
             DisplayAlert("Error", "Something went wrong", "OK");
         }
+        
 
     }
 

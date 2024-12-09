@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WebVetMobile.Pages.DetailsPage"
-             Title="DetailsPage">
-    <Grid RowSpacing="1" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+             Title="Detail Page">
+    <Grid RowSpacing="1" Padding="10" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
 
         <Label Grid.Row="1" Grid.Column="0" FontAttributes="Bold"
@@ -68,6 +68,9 @@
                                 FontSize="Medium"
                                 x:Name="LblState"
                                 />
+        
+        
+        
         <Button Grid.Row="6"
                Text="Cancel"
                FontSize="Medium"
