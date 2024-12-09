@@ -2,7 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WebVetMobile.Pages.ProfilePage"
-             Title="Your Profile">
+             xmlns:local="clr-namespace:WebVetMobile.Models"
+             Title="Your Profile"
+           >
+    <ContentPage.BindingContext>
+        <local:User />
+    </ContentPage.BindingContext>
+
     <Grid RowDefinitions="Auto,*" RowSpacing="0">
 
         <VerticalStackLayout Grid.Row="0"
@@ -31,16 +37,19 @@
              Keyboard="Email"
              FontSize="12"
              x:Name="EntEmail"
-             IsReadOnly="True"/>
+             IsReadOnly="True"
+                   Text="{Binding Email}"/>
 
 
             <Entry Placeholder="First Name"
              FontSize="12"
-             x:Name="EntFirstName" />
+             x:Name="EntFirstName "
+                    Text="{Binding FirstName}"/>
 
             <Entry Placeholder="Last Name"
              FontSize="12"
-             x:Name="EntLastName" />
+             x:Name="EntLastName" 
+                   Text="{Binding LastName}"/>
 
 
 
@@ -48,12 +57,14 @@
             <Entry Placeholder="Address"
               FontSize="12"
               x:Name="EntAddress"
+                   Text="{Binding Address}"
               />
 
             <Entry Placeholder="Contact"
                Keyboard="Telephone"
                FontSize="12"
-               x:Name="EntContact" />
+               x:Name="EntContact"
+                    Text="{Binding Address}"/>
 
             <Button
                 x:Name="BtnSave"

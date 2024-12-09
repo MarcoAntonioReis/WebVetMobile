@@ -3,49 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WebVetMobile.Pages.Animals"
              Title="Your pets">
-    <CollectionView x:Name="CvAnimals"
+
+
+    <ScrollView >
+
+        <VerticalStackLayout>
+
+
+            <CollectionView x:Name="CvAnimals"
                  SelectionMode="Single"
                  Margin="10"
                  SelectionChanged="CvAnimals_SelectionChanged">
 
 
-        <CollectionView.ItemsLayout>
+                <CollectionView.ItemsLayout>
 
-            <GridItemsLayout Orientation="Vertical" Span="1"
+                    <GridItemsLayout Orientation="Vertical" Span="1"
                          HorizontalItemSpacing="15"
                          VerticalItemSpacing="15"/>
 
-        </CollectionView.ItemsLayout>
+                </CollectionView.ItemsLayout>
 
-        <CollectionView.ItemTemplate>
+                <CollectionView.ItemTemplate>
 
-            <DataTemplate>
+                    <DataTemplate>
 
-                <Border VerticalOptions="Start"
+                        <Border VerticalOptions="Start"
                     StrokeShape="RoundRectangle 15,15,15,15"
                     Padding="10">
 
-                    <Grid RowSpacing="1" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+                            <Grid RowSpacing="1" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
 
 
-                        <Label Grid.Row="1" Grid.Column="0" FontAttributes="Bold"
+                                <Image Grid.Row="0" Grid.Column="0" Aspect="AspectFit" HeightRequest="110" Source="{Binding ImageFullPath}"/>
+
+                                <Grid Grid.Row="0" Grid.Column="1" RowSpacing="1" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto" VerticalOptions="Center" Padding="20,0,0,0">
+                                    
+                                    <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold"
                            FontSize="Medium"
                            LineBreakMode="WordWrap"
                            MaxLines="2"
                            Text="Name:  "/>
-                        <Label Grid.Row="1" Grid.Column="1" FontAttributes="Bold"
+                                    <Label Grid.Row="0" Grid.Column="1" FontAttributes="Bold"
                            FontSize="Medium"
                            LineBreakMode="WordWrap"
                            MaxLines="2"
                            Text="{Binding Name}"/>
 
-                        <Label Grid.Row="2" Grid.Column="0" FontAttributes="Bold"
+                                    <Label Grid.Row="1" Grid.Column="0" FontAttributes="Bold"
                        FontSize="Medium"
                        LineBreakMode="WordWrap"
                        MaxLines="2"
                        Text="Species:"/>
 
-                        <Label Grid.Row="2" Grid.Column="1"
+                                    <Label Grid.Row="1" Grid.Column="1"
                            FontAttributes="Bold"
                            FontSize="Medium"
                             MaxLines="1"
@@ -54,15 +65,18 @@
 
 
 
-                    </Grid>
-
-                </Border>
-            </DataTemplate>
-
-
-
-        </CollectionView.ItemTemplate>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
 
 
-    </CollectionView>
+
+                </CollectionView.ItemTemplate>
+
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

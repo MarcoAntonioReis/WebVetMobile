@@ -4,89 +4,98 @@
              x:Class="WebVetMobile.Pages.TeamPage"
              Title="The Team">
 
-    <Grid RowDefinitions="Auto,Auto"
-         RowSpacing="20"
-      >
 
-
-        <CollectionView x:Name="CvVets"
-                 SelectionMode="Single"
-                 Margin="10"
-                 Grid.Row="0"
+    <ScrollView >
+        <VerticalStackLayout         
                  >
 
 
-            <CollectionView.ItemsLayout>
+            <CollectionView x:Name="CvVets"
+                 
+                 Margin="10,10,10,10"
+                 Grid.Row="0"    
+                            SelectionMode="None"
+                 >
 
-                <GridItemsLayout Orientation="Vertical" Span="1"
+
+                <CollectionView.ItemsLayout>
+
+                    <GridItemsLayout Orientation="Vertical" Span="1"
                          HorizontalItemSpacing="15"
                          VerticalItemSpacing="15"/>
 
-            </CollectionView.ItemsLayout>
+                </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemTemplate>
+                <CollectionView.ItemTemplate>
 
-                <DataTemplate>
+                    <DataTemplate>
 
-                    <Border VerticalOptions="Start"
+                        <Border VerticalOptions="Start"
                     StrokeShape="RoundRectangle 15,15,15,15"
                     Padding="10">
 
-                        <Grid RowSpacing="1" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+                            <Grid RowSpacing="1" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto" >
+
+                                <Image Grid.Row="0" Grid.Column="0" Aspect="AspectFit" HeightRequest="110" Source="{Binding FullImgPath}"/>
+
+                                <Grid Grid.Row="0" Grid.Column="1" RowSpacing="1" ColumnSpacing="5" ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto" VerticalOptions="Center" Padding="20,0,0,0">
+                                    <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"
+                                    Text="Name:  "/>
+
+                                    <Label Grid.Row="0" Grid.Column="1" FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"
+                                    Text="{Binding FullName}"/>
 
 
-                            <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold"
-                           FontSize="Medium"
-                           LineBreakMode="WordWrap"
-                           MaxLines="2"
-                           Text="Name:  "/>
-                            <Label Grid.Row="0" Grid.Column="1" FontAttributes="Bold"
-                           FontSize="Medium"
-                           LineBreakMode="WordWrap"
-                           MaxLines="2"
-                           Text="{Binding FullName}"/>
+                                    <Label Grid.Row="1" Grid.Column="0" FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"
+                                    Text="Speciality:  "/>
+                                    <Label Grid.Row="1" Grid.Column="1" FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"
+                                    Text="{Binding Speciality}"/>
 
 
-                            <Label Grid.Row="1" Grid.Column="0" FontAttributes="Bold"
-                           FontSize="Medium"
-                           LineBreakMode="WordWrap"
-                           MaxLines="2"
-                           Text="Speciality:  "/>
-                            <Label Grid.Row="1" Grid.Column="1" FontAttributes="Bold"
-                           FontSize="Medium"
-                           LineBreakMode="WordWrap"
-                           MaxLines="2"
-                           Text="{Binding Speciality}"/>
+                                    <Label Grid.Row="2" Grid.Column="0" FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2"
+                                    Text="Availability:"/>
 
-
-                            <Label Grid.Row="2" Grid.Column="0" FontAttributes="Bold"
-                       FontSize="Medium"
-                       LineBreakMode="WordWrap"
-                       MaxLines="2"
-                       Text="Availability:"/>
-
-                            <Label Grid.Row="2" Grid.Column="1"
-                           FontAttributes="Bold"
-                           FontSize="Medium"
-                            MaxLines="1"
-                           Text="8:00 - 21:00"/>
-
-
-
-
-                        </Grid>
-
-                    </Border>
-                </DataTemplate>
+                                    <Label Grid.Row="2" Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                     MaxLines="1"
+                                    Text="8:00 - 21:00"/>
+                                </Grid>
 
 
 
-            </CollectionView.ItemTemplate>
 
 
-        </CollectionView>
 
-        <Button Grid.Row="1"
+
+                            </Grid>
+
+                        </Border>
+                    </DataTemplate>
+
+
+
+                </CollectionView.ItemTemplate>
+
+
+            </CollectionView>
+
+            <Button Grid.Row="1"
                 Margin="10,0,10,10"
                Text="About"
                FontSize="Medium"
@@ -94,5 +103,6 @@
                BackgroundColor="#a90409"
                Clicked="BtnAbout_Clicked"/>
 
-    </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

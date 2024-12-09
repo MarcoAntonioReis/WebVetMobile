@@ -17,5 +17,7 @@ namespace WebVetMobile.Models
 
 
         public string? Speciality { get; set; }
+
+        public string? FullImgPath { get; set; }
     }
 }

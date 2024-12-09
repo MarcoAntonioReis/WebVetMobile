@@ -13,7 +13,7 @@ public partial class ProfilePage : ContentPage
 
     private const string UserId = "UserId";
     private Guid imageId;
-
+        private User user = new User();
 
     public ProfilePage(ApiService apiService, IValidator validator)
     {
@@ -22,7 +22,10 @@ public partial class ProfilePage : ContentPage
         _apiService = apiService;
         _validator = validator;
         
+        
     }
+
+    
 
     protected override async void OnAppearing()
     {
@@ -37,6 +40,7 @@ public partial class ProfilePage : ContentPage
         User currentUser = await _apiService.GetCurrentUserInfo();
         if (currentUser != null)
         {
+
             EntFirstName.Text = currentUser.FirstName;
             EntLastName.Text = currentUser.LastName;
             EntEmail.Text = currentUser.Email;
@@ -46,6 +50,12 @@ public partial class ProfilePage : ContentPage
 
 
         }
+
+        if (currentUser!=null)
+        {
+            user = currentUser;
+        }
+        
 
         
 
@@ -151,4 +161,6 @@ public partial class ProfilePage : ContentPage
         }
         return null;
     }
+    
+    
 }
