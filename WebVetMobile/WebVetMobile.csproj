@@ -57,6 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\home.png" />
+	  <None Remove="Resources\Images\people.png" />
+	  <None Remove="Resources\Images\pets.png" />
+	  <None Remove="Resources\Images\profile.png" />
 	  <None Remove="Resources\Images\vet.png" />
 	</ItemGroup>
 

@@ -118,7 +118,7 @@ public partial class ProfilePage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Something went wrongo: {ex.Message}", "Ok");
+            await DisplayAlert("Error", $"Something went wrong: {ex.Message}", "Ok");
         }
     }
 
@@ -126,11 +126,11 @@ public partial class ProfilePage : ContentPage
     {
         try
         {
-            var arquivo = await MediaPicker.PickPhotoAsync();
+            var archive = await MediaPicker.PickPhotoAsync();
 
-            if (arquivo is null) return null;
+            if (archive is null) return null;
 
-            using (var stream = await arquivo.OpenReadAsync())
+            using (var stream = await archive.OpenReadAsync())
             using (var memoryStream = new MemoryStream())
             {
                 await stream.CopyToAsync(memoryStream);

@@ -29,8 +29,8 @@ namespace WebVetMobile
                 Items =
             {
                 new ShellContent { Title = "Appointments",Icon = "home",Content = homePage  },
-                new ShellContent { Title = "Animals",Icon = "home",Content = animalsPage  },
-                new ShellContent { Title = "The Team", Icon = "cart",Content = teamPage },
+                new ShellContent { Title = "Animals",Icon = "pets",Content = animalsPage  },
+                new ShellContent { Title = "The Team", Icon = "people",Content = teamPage },
                 //new ShellContent { Title = "Favoritos",Icon = "heart",Content = favoritosPage },
                 new ShellContent { Title = "Perfil",Icon = "profile",Content = perfilPage }
             }

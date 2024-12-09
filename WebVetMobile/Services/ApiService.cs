@@ -394,9 +394,9 @@ namespace WebVetMobile.Services
                 {
                     string errorMessage = response.StatusCode == HttpStatusCode.Unauthorized
                       ? "Unauthorized"
-                      : $"Erro ao enviar requisição HTTP: {response.StatusCode}";
+                      : $"Error in HTTP requestion: {response.StatusCode}";
 
-                    _logger.LogError($"Erro ao enviar requisição HTTP: {response.StatusCode}");
+                    _logger.LogError($"Error in HTTP requestion: {response.StatusCode}");
                     return new ApiResponse<Guid> { ErrorMessage = errorMessage };
                 }
 
@@ -408,7 +408,39 @@ namespace WebVetMobile.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao fazer upload da imagem do usuário: {ex.Message}");
+                _logger.LogError($"Error in upload of image: {ex.Message}");
+                return new ApiResponse<Guid> { ErrorMessage = ex.Message };
+            }
+        }
+
+
+        internal async Task<ApiResponse<Guid>> UploadAnimalImage(byte[] imageArray)
+        {
+            try
+            {
+                var content = new MultipartFormDataContent();
+                content.Add(new ByteArrayContent(imageArray), "image", "image.jpg");
+                var response = await PostRequest("api/Account/UploadImageAnimal", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorMessage = response.StatusCode == HttpStatusCode.Unauthorized
+                      ? "Unauthorized"
+                      : $"Error in HTTP requestion: {response.StatusCode}";
+
+                    _logger.LogError($"Error in HTTP requestion: {response.StatusCode}");
+                    return new ApiResponse<Guid> { ErrorMessage = errorMessage };
+                }
+
+                var responseString = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<Guid>(responseString, _serializerOptions);
+
+
+                return new ApiResponse<Guid> { Data = data };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in upload of image: {ex.Message}");
                 return new ApiResponse<Guid> { ErrorMessage = ex.Message };
             }
         }

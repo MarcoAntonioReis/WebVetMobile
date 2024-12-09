@@ -17,7 +17,7 @@
                    CornerRadius="125"
                    Aspect="AspectFill"
                    x:Name="ImgBtnPerfil"
-                         Clicked="ImgBtnPerfil_Clicked"/>
+                   Clicked="ImgBtnPerfil_Clicked"/>
 
 
 
